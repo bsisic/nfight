@@ -3,6 +3,11 @@
 
 NFight is a web dapp based on the Ethereum blockchain.
 
+![](https://img.shields.io/github/issues/bsisic/nfight)
+![](https://img.shields.io/github/forks/bsisic/nfight)
+![](https://img.shields.io/github/stars/bsisic/nfight)
+![](https://img.shields.io/github/license/bsisic/nfight)
+
 ## Features
 
 - wallet binding (Metamask)
