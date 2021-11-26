@@ -19,6 +19,7 @@ NFight is a web dapp based on the Ethereum blockchain.
 NFighT is created with :
 
 - Next.js
+- Solidity
 - Hardhat
 - Ether.js
 - IPFS
