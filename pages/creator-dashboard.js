@@ -3,30 +3,34 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
 import Image from 'next/image'
-import {
-  nftaddress, nftmarketaddress
-} from '../config'
 import styles from '../styles/Home.module.css'
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
+import {
+  nftmarketaddress, nftaddress
+} from '../config'
 
-export default function Home() {
+import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
+import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
+
+export default function CreatorDashboard() {
   const [nfts, setNfts] = useState([])
+  const [sold, setSold] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   useEffect(() => {
     loadNFTs()
   }, [])
   async function loadNFTs() {
-    /* create a generic provider and query for unsold market items */
-    const provider = new ethers.providers.JsonRpcProvider()
-    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
-    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
-    const data = await marketContract.fetchMarketItems()
+    const web3Modal = new Web3Modal({
+      network: "mainnet",
+      cacheProvider: true,
+    })
+    const connection = await web3Modal.connect()
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
 
-    /*
-    *  map over items returned from smart contract and format 
-    *  them as well as fetch their token metadata
-    */
+    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
+    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
+    const data = await marketContract.fetchItemsCreated()
+
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
@@ -36,35 +40,23 @@ export default function Home() {
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
         owner: i.owner,
+        sold: i.sold,
         image: meta.data.image,
-        name: meta.data.name,
         description: meta.data.description,
+        name: meta.data.name
       }
       return item
     }))
+    /* create a filtered array of items that have been sold */
+    const soldItems = items.filter(i => i.sold)
+    setSold(soldItems)
     setNfts(items)
     setLoadingState('loaded') 
   }
-  async function buyNft(nft) {
-    /* needs the user to sign the transaction, so will use Web3Provider and sign it */
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
-    const signer = provider.getSigner()
-    const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-
-    /* user will be prompted to pay the asking proces to complete the transaction */
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')   
-    const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
-      value: price
-    })
-    await transaction.wait()
-    loadNFTs()
-  }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets created</h1>)
   return (
     <div>
-      <h2>Market</h2>
+      <h2>Items Created</h2>
       <div className={styles.homesection}>
       {
         nfts.map((nft, i) => (
@@ -78,12 +70,32 @@ export default function Home() {
             </div>
             <div>
               <p>Price : {nft.price} ETH</p>
-              <button className={styles.buttonbuy} onClick={() => buyNft(nft)}>Buy</button>
             </div>
           </div>
         ))
       }
-    </div>
+      </div>
+      <h2>Items sold</h2>
+      <div className={styles.homesection}>
+      {
+        Boolean(sold.length) && (
+          sold.map((nft, i) => (
+            <div key={i} className={styles.cardasset}>
+              <Image src={nft.image} alt="" width="100%" height="100%" className={styles.cardassetimg} />
+              <div>
+                <p>Name : {nft.name}</p>
+                <div>
+                  <p>Description : {nft.description}</p>
+                </div>
+              </div>
+              <div>
+                <p>Price : {nft.price} ETH</p>
+              </div>
+            </div>
+          ))
+        )
+      }
+      </div>
     </div>
   )
 }

@@ -45,3 +45,4 @@ artifacts
 
 #secret
 .secret
+config.js

@@ -3,23 +3,20 @@
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
 }
 
 .main {
-  padding: 5rem 0;
+  padding: 2rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
 .footer {
   width: 100%;
-  height: 100px;
+  min-height: 100px;
   border-top: 1px solid #eaeaea;
   display: flex;
   justify-content: center;
@@ -48,6 +45,13 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  margin: 0;
+  line-height: 1.15;
+  margin-bottom: 4rem;
 }
 
 .title,
@@ -117,4 +121,115 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.menu {
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5rem;
+}
+
+.menuitem {
+  background-color: #D8F3DC;
+  color: #081C15;
+  font-weight: bold;
+  width: auto;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.homesection {
+  width: 80vw;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.sellsection {
+  border-radius: 10px;
+  padding: 2rem;
+  border: 1px solid #D8F3DC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.inputcustom {
+  width: 80%;
+  height: 50px;
+  padding: 5px;
+  margin: 15px;
+  background-color: transparent;
+  color: #D8F3DC;
+  border-radius: 10px;
+}
+
+.buttoncreate {
+  background-color: #52B788;
+  border: none;
+  width: 80%;
+  height: 50px;
+  border-radius: 10px;
+  margin-top: 15px;
+  color:white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 50px;
+  padding: 5px;
+  margin:15px;
+  background-color: transparent;
+  color: #D8F3DC;
+  border: 1px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #D8F3DC;
+  color: #52B788;
+}
+
+.cardasset {
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 2rem;
+  padding: 2rem;
+  width: 20vw;
+}
+
+.buttonbuy {
+  background-color: #52B788;
+  border: none;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  margin-top: 15px;
+  color:white;
+  font-weight: bold;
+  cursor: pointer;
 }
