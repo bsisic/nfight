@@ -66,6 +66,14 @@ add some of the accounts in your Metamask extension and start your app with :
 npm run dev
 ```
 
+## To do
+
+- [ ] dockerize
+- [ ] production cloud deploy (gcp/k8s)
+- [ ] create the NFT card generator 
+- [ ] add the playground UI
+- [ ] setup the pvp system
+
 ## License
 
 MIT
