@@ -72,6 +72,14 @@ add some of the accounts in your Metamask extension and start your app with :
 npm run dev
 ```
 
+## Test 
+
+/test
+
+```
+npx hardhat test
+```
+
 ## To do
 
 - [ ] dockerize
