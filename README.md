@@ -1,5 +1,5 @@
 # NFighT
-## _Mint NFT, trade it and play with against other users!_
+## _Mint NFT, trade it and play!_
 
 NFight is a web dapp based on the Ethereum blockchain.
 
