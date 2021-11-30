@@ -4,7 +4,6 @@ import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
 import Web3Modal from 'web3modal'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 import {
@@ -79,24 +78,22 @@ export default function CreateItem() {
   return (
     <div style={{textAlign:'center'}}>
       <h2>Create your NFT</h2>
-      <div className={styles.sellsection}>
+      <div>
           <input
-            className={styles.inputcustom}
+            maxLength="20"
             placeholder="Asset Name"
             onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
           />
           <input
-            className={styles.inputcustom}
-            placeholder="Asset Description"
+            maxLength="20"
+            placeholder="Asset Owner Name"
             onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
           />
           <input
-            className={styles.inputcustom}
             placeholder="Asset Price in Eth"
             onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
           />
           <input
-            className={styles.inputfile}
             type="file"
             name="file"
             id="file"
@@ -109,7 +106,7 @@ export default function CreateItem() {
               <Image width={42} height={42} src={fileUrl} alt=""/>
             )
           }
-          <button onClick={createMarket} className={styles.buttoncreate}>
+          <button onClick={createMarket}>
             Create
           </button>
       </div>

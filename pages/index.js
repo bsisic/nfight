@@ -6,9 +6,9 @@ import Image from 'next/image'
 import {
   nftaddress, nftmarketaddress
 } from '../config'
-import styles from '../styles/Home.module.css'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
+import Card from '../components/Card'
 
 export default function Home() {
   const [nfts, setNfts] = useState([])
@@ -61,29 +61,20 @@ export default function Home() {
     await transaction.wait()
     loadNFTs()
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (<h1>No items in marketplace</h1>)
   return (
-    <div>
-      <h2>Market</h2>
-      <div className={styles.homesection}>
+    <div style={{
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    }}>
       {
         nfts.map((nft, i) => (
-          <div key={i} className={styles.cardasset}>
-            <Image src={nft.image} alt="" width="100%" height="100%" className={styles.cardassetimg} />
-            <div>
-              <p>Name : {nft.name}</p>
-              <div>
-                <p>Description : {nft.description}</p>
-              </div>
-            </div>
-            <div>
-              <p>Price : {nft.price} ETH</p>
-              <button className={styles.buttonbuy} onClick={() => buyNft(nft)}>Buy</button>
-            </div>
-          </div>
+          <Card key={i} image={nft.image} name={nft.name} description={nft.description} price={nft.price} onClick={() => buyNft(nft)} />
         ))
       }
-    </div>
     </div>
   )
 }

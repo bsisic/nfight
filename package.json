@@ -18,6 +18,7 @@
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.1",
+    "framer-motion": "^5.3.3",
     "hardhat": "^2.7.0",
     "ipfs-http-client": "^50.1.2",
     "next": "12.0.4",

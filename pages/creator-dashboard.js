@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import {
   nftmarketaddress, nftaddress
 } from '../config'
-
+import Card from '../components/Card'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 
@@ -53,48 +52,44 @@ export default function CreatorDashboard() {
     setNfts(items)
     setLoadingState('loaded') 
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets created</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (<h1>No assets created</h1>)
   return (
     <div>
-      <h2>Items Created</h2>
-      <div className={styles.homesection}>
-      {
-        nfts.map((nft, i) => (
-          <div key={i} className={styles.cardasset}>
-            <Image src={nft.image} alt="" width="100%" height="100%" className={styles.cardassetimg} />
-            <div>
-              <p>Name : {nft.name}</p>
-              <div>
-                <p>Description : {nft.description}</p>
-              </div>
-            </div>
-            <div>
-              <p>Price : {nft.price} ETH</p>
-            </div>
-          </div>
-        ))
-      }
-      </div>
-      <h2>Items sold</h2>
-      <div className={styles.homesection}>
-      {
-        Boolean(sold.length) && (
-          sold.map((nft, i) => (
-            <div key={i} className={styles.cardasset}>
-              <Image src={nft.image} alt="" width="100%" height="100%" className={styles.cardassetimg} />
-              <div>
-                <p>Name : {nft.name}</p>
-                <div>
-                  <p>Description : {nft.description}</p>
-                </div>
-              </div>
-              <div>
-                <p>Price : {nft.price} ETH</p>
-              </div>
-            </div>
+      <h1 style={{
+        fontSize:'2rem',
+        fontWeight:'300',
+        marginLeft: '50px'
+      }}>Creation</h1>
+      <div style={{
+        width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+      }}>
+        {
+          nfts.map((nft, i) => (
+            <Card key={i} image={nft.image} name={nft.name} description={nft.description} price={nft.price} />
           ))
-        )
-      }
+        }
+      </div>
+      <h1 style={{
+        fontSize:'2rem',
+        fontWeight:'300',
+        marginLeft: '50px'
+      }}>Sell</h1>
+      <div style={{
+        width: '100%s',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+      }}>
+        {
+          sold.map((nft, i) => (
+            <Card key={i} image={nft.image} name={nft.name} description={nft.description} price={nft.price} />
+          ))
+        }
       </div>
     </div>
   )

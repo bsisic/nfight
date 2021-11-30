@@ -1,56 +1,30 @@
-import '../styles/globals.css'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
 import Head from 'next/head'
+import '../styles/globals.css'
+import Header from '../components/Header'
+import Menu from '../components/Menu'
 import Footer from '../components/Footer'
+import { AnimatePresence } from 'framer-motion';
 
-function MyApp({ Component, pageProps }) {
+function NFighT({ Component, pageProps }) {
   return (
-    <div className={styles.container}>
+    <AnimatePresence>
       <Head>
         <title>NFighT</title>
-        <meta name="description" content="NFT cards battle game" />
+        <meta name="description" content="NFT playground" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to NFighT
-        </h1>
-
-        <h3 className={styles.subtitle}>
-          Buy and sell NFT cards, build your deck with your card's collection then fight other users in the arena.
-        </h3>
-
-        <div className={styles.menu}>
-          <Link href="/">
-            <a className={styles.menuitem}>
-              Market
-            </a>
-          </Link>
-          <Link href="/create-item">
-            <a className={styles.menuitem}>
-              Sell Digital Asset
-            </a>
-          </Link>
-          <Link href="/my-assets">
-            <a className={styles.menuitem}>
-              My Collection
-            </a>
-          </Link>
-          <Link href="/creator-dashboard">
-            <a className={styles.menuitem}>
-              Dashboard
-            </a>
-          </Link>
-        </div>
+      <main>
+        <Header/>
+        
+        <Menu/>
 
         <Component {...pageProps} />
       </main>
       
       <Footer/>
-    </div>
+    </AnimatePresence>
   )
 }
 
-export default MyApp
+export default NFighT

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Footer.module.css'
 
 export default function Footer() {
     return (
@@ -10,7 +10,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             >
-            Powered by{' '}
+            Powered by
             <span className={styles.logo}>
                 <Image src="/logo-elliotcorp.png" alt="Elliot Corp Logo" width={32} height={32} />
             </span>
