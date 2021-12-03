@@ -51,6 +51,17 @@ export default function Menu() {
                     </Link>
                 )
             }
+            {
+                router.pathname === "/battle" ? (
+                    <Link href="/battle">
+                        <a className={styles.menuitemactive}>Battle</a>
+                    </Link>
+                ) : (
+                    <Link href="/battle">
+                        <a className={styles.menuitem}>Battle</a>
+                    </Link>
+                )
+            }
         </div>
     )
 }

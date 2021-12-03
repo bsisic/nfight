@@ -22,7 +22,15 @@ export default function Header({ signer, balance }) {
             </Animated>
 
             { signer && (
-                <div>
+                <div style={{
+                    width: '80%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign:'center'
+                }}>
                     <p>Status : {signer} </p>
                     {/* <p>Balance : {balance} </p> */}
                 </div>
