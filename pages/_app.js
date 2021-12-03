@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react'
 import Head from 'next/head'
 import '../styles/globals.css'
 import Header from '../components/Header'
@@ -5,7 +6,19 @@ import Menu from '../components/Menu'
 import Footer from '../components/Footer'
 import { AnimatePresence } from 'framer-motion';
 
+import Web3Modal from "web3modal"
+
 function NFighT({ Component, pageProps }) {
+  const [signer, setSigner] = useState(null);
+  useEffect(() => {
+    loadSigner() 
+  }, [signer]);
+  async function loadSigner() {
+    const web3Modal = new Web3Modal()
+    const connection = await web3Modal.connect()
+
+    setSigner(connection.selectedAddress)
+  }
   return (
     <AnimatePresence>
       <Head>
@@ -15,7 +28,7 @@ function NFighT({ Component, pageProps }) {
       </Head>
 
       <main>
-        <Header/>
+        <Header signer={signer}/>
         
         <Menu/>
 

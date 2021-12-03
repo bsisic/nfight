@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from '../styles/Header.module.css'
 import Animated from "./Animated";
 
-export default function Header() {
+export default function Header({ signer, balance }) {
     return (
         <header className={styles.head}>
             <Animated>
@@ -20,6 +20,13 @@ export default function Header() {
                 }}>, trade it and play!</span>
                 </h1>
             </Animated>
+
+            { signer && (
+                <div>
+                    <p>Status : {signer} </p>
+                    {/* <p>Balance : {balance} </p> */}
+                </div>
+            )}
         </header>
     )
 }
