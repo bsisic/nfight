@@ -17,7 +17,11 @@ export default function Card(props) {
                     height="80%"
                     alt="ethereum"/>
                 </div>
-                <button className={styles.cardcta} onClick={props.onClick}>Buy</button>
+                { !props.nobuy ? (
+                <button className={styles.cardcta} onClick={props.onClick}>Buy</button>)
+                : (
+                <button className={styles.cardcta} onClick={props.onClick}>Select</button>
+                )}
             </div>
         </div>
     )

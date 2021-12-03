@@ -10,7 +10,7 @@ import Card from '../components/Card'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 
-export default function CreatorDashboard() {
+export default function Dashboard() {
   const [nfts, setNfts] = useState([])
   const [sold, setSold] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
