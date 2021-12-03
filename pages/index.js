@@ -60,7 +60,19 @@ export default function Home() {
     await transaction.wait()
     loadNFTs()
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1>No items in marketplace</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (
+    <div style={{
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    }}>
+      <h1 style={{
+        fontWeight: '300'
+      }}>No NFT in NFighT Marketplace</h1>
+    </div>
+  )
   return (
     <div style={{
       width: '100%',

@@ -9,6 +9,11 @@ export default function Footer() {
             href="https://elliotcorp.com/"
             target="_blank"
             rel="noopener noreferrer"
+            style={{
+                textDecoration:'none',
+                color: 'white',
+                textTransform:'none'
+            }}
             >
             Powered by
             <span className={styles.logo}>

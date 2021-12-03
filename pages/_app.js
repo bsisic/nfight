@@ -12,7 +12,7 @@ function NFighT({ Component, pageProps }) {
   const [signer, setSigner] = useState(null);
   useEffect(() => {
     loadSigner() 
-  }, [signer]);
+  }, []);
   async function loadSigner() {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()

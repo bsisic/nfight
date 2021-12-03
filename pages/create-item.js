@@ -76,21 +76,66 @@ export default function CreateItem() {
   }
 
   return (
-    <div style={{textAlign:'center'}}>
-      <h2>Create your NFT</h2>
-      <div>
+    <div style={{
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'space-around',
+    }}>
+      <h1 style={{
+        fontWeight: '300'
+      }}>Mint your NFT</h1>
+
+      <div style={{
+        marginTop: '5rem',
+        display:'flex',
+        flexDirection: 'column',
+        height: '400px',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+      }}>
           <input
+          style={{
+            backgroundColor:'transparent',
+            color: 'white',
+            border: 'none',
+            borderBottom: '2px solid white',
+            paddingBottom: '10px',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '20px'
+          }}
             maxLength="20"
-            placeholder="Asset Name"
+            placeholder="Name"
             onChange={e => updateFormInput({ ...formInput, name: e.target.value })}
           />
           <input
+          style={{
+            backgroundColor:'transparent',
+            color: 'white',
+            border: 'none',
+            borderBottom: '2px solid white',
+            paddingBottom: '10px',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '20px'
+          }}
             maxLength="20"
-            placeholder="Asset Owner Name"
+            placeholder="Owner Name"
             onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
           />
           <input
-            placeholder="Asset Price in Eth"
+          style={{
+            backgroundColor:'transparent',
+            color: 'white',
+            border: 'none',
+            borderBottom: '2px solid white',
+            paddingBottom: '10px',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '20px'
+          }}
+            type="number"
+            placeholder="Price in Eth"
             onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
           />
           <input
@@ -98,15 +143,35 @@ export default function CreateItem() {
             name="file"
             id="file"
             onChange={onChange}
+            style={{
+              backgroundColor:'transparent',
+              color: 'white',
+              border: 'none',
+              borderBottom: '2px solid white',
+              paddingBottom: '10px',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '20px'
+            }}
           />
-          <label htmlFor="file">Choose a file</label>
 
           {
             fileUrl && (
-              <Image width={42} height={42} src={fileUrl} alt=""/>
+              <Image 
+              width="100%" 
+              height="100%" 
+              src={fileUrl} 
+              alt="fileUrl"/>
             )
           }
-          <button onClick={createMarket}>
+          <button style={{
+            width: '300px',
+            height: '3rem',
+            backgroundColor: 'white',
+            border: 'none',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontWeight: '700',
+            cursor: 'pointer'
+          }} onClick={createMarket}>
             Create
           </button>
       </div>

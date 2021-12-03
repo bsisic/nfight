@@ -52,7 +52,19 @@ export default function CreatorDashboard() {
     setNfts(items)
     setLoadingState('loaded') 
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1>No assets created</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (
+    <div style={{
+      width: '100%',
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    }}>
+      <h1 style={{
+        fontWeight: '300'
+      }}>Empty</h1>
+    </div>
+  )
   return (
     <div>
       <h1 style={{
