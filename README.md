@@ -1,4 +1,8 @@
 # NFighT
+
+![Alt text](/screens/NFighT-MARKET.png?raw=true "NFighT Market")
+![Alt text](/screens/NFighT-MINT.png?raw=true "NFighT Mint")
+
 ## _Mint NFT, trade it and play!_
 
 NFight is a web dapp based on the Ethereum blockchain.
