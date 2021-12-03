@@ -2,6 +2,7 @@
 
 ![Alt text](/screens/NFighT-MARKET.png?raw=true "NFighT Market")
 ![Alt text](/screens/NFighT-MINT.png?raw=true "NFighT Mint")
+![Alt text](/screens/NFighT-NETWORK.png?raw=true "NFighT Network")
 
 ## _Mint NFT, trade it and play!_
 
