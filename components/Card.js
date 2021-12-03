@@ -20,7 +20,7 @@ export default function Card(props) {
                 { !props.nobuy ? (
                 <button className={styles.cardcta} onClick={props.onClick}>Buy</button>)
                 : (
-                <button className={styles.cardcta} onClick={props.onClick}>Select</button>
+                <button className={styles.cardcta} onClick={props.onClick}>{ props.isDeck ? "✅" : "Select"}</button>
                 )}
             </div>
         </div>

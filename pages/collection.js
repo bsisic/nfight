@@ -8,8 +8,6 @@ import {
 import Card from '../components/Card'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-import { DEPRECATED_KEYS } from '@babel/types'
-import { arrayify } from '@ethersproject/bytes'
 
 export default function Collection() {
   const [nfts, setNfts] = useState([])
@@ -17,8 +15,7 @@ export default function Collection() {
   const [loadingState, setLoadingState] = useState('not-loaded')
   useEffect(() => {
     loadNFTs()
-    console.log(deck)
-  }, [])
+  }, [nfts])
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
       network: "mainnet",
@@ -51,9 +48,22 @@ export default function Collection() {
     setLoadingState('loaded') 
   }
   async function addToDeck(nft) {
-    setDeck(deck.filter(nft => nft !== nft))
-    localStorage.setItem("deck", deck)
+    if (deck.includes(nft.name)) {
+      setDeck(deck.filter(item => item !== nft.name))
+    } else {
+      setDeck(deck => [...deck, nft.name])
+    }
   }
+  useEffect(() => {
+    localStorage.setItem("deck", deck)
+  }, [deck]);
+
+  useEffect(() => {
+    if (localStorage.getItem("deck") !== null){
+      console.log(localStorage.getItem("deck"))
+    }
+  }, []);
+
   if (loadingState === 'loaded' && !nfts.length) return (
     <div style={{
       width: '100%',
@@ -76,17 +86,25 @@ export default function Collection() {
       justifyContent: 'space-around',
     }}>
       { deck && (
-        <div>{ deck.map((nft, i) => {
+        <div>{ deck.map((name, i) => {
           return (
-            <p key={i}>{nft.name}</p>
+            <p key={i}>{name}</p>
           )
         }) }</div>
       )}
-      {
-        nfts.map((nft, i) => (
-          <Card key={i} image={nft.image} name={nft.name} description={nft.description} onClick={() => addToDeck(nft)} price={nft.price} nobuy={true}/>
-        ))
-      }
+      <div style={{
+        width: '100vw',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+      }}>
+        {
+          nfts.map((nft, i) => (
+            <Card key={i} image={nft.image} name={nft.name} description={nft.description} onClick={() => addToDeck(nft)} price={nft.price} nobuy={true} isDeck={deck.includes(nft.name)}/>
+          ))
+        }
+      </div>
     </div>
   )
 }
