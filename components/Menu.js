@@ -19,34 +19,34 @@ export default function Menu() {
                 )
             }
             {
-                router.pathname === "/create-item" ? (
-                    <Link href="/create-item">
+                router.pathname === "/mint" ? (
+                    <Link href="/mint">
                         <a className={styles.menuitemactive}>Create</a>
                     </Link>
                 ) : (
-                    <Link href="/create-item">
+                    <Link href="/mint">
                         <a className={styles.menuitem}>Create</a>
                     </Link>
                 )
             }
             {
-                router.pathname === "/my-assets" ? (
-                    <Link href="/my-assets">
+                router.pathname === "/collection" ? (
+                    <Link href="/collection">
                         <a className={styles.menuitemactive}>Collection</a>
                     </Link>
                 ) : (
-                    <Link href="/my-assets">
+                    <Link href="/collection">
                         <a className={styles.menuitem}>Collection</a>
                     </Link>
                 )
             }
             {
-                router.pathname === "/creator-dashboard" ? (
-                    <Link href="/creator-dashboard">
+                router.pathname === "/dashboard" ? (
+                    <Link href="/dashboard">
                         <a className={styles.menuitemactive}>Dashboard</a>
                     </Link>
                 ) : (
-                    <Link href="/creator-dashboard">
+                    <Link href="/dashboard">
                         <a className={styles.menuitem}>Dashboard</a>
                     </Link>
                 )
