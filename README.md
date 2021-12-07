@@ -64,7 +64,8 @@ open your terminal and run the following command to spin up a local network
 npx hardhat node
 ```
 this should create a local network with 19 accounts
-keep the node running and in a new terminal window run
+
+then, keep the node running and in a new terminal window run
 
 ```
 npx hardhat run scripts/deploy.js --network localhost
