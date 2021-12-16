@@ -9,10 +9,36 @@ import Card from '../components/Card'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 
+const Modal = (props) => {
+  useEffect(() => {
+    document.body.style.opacity = 0.5;
+    return () => {
+      document.body.style.opacity = 1;
+    };
+  }, []);
+  return (
+    <div style={{
+      border: '1px solid white',
+      width: '50vw',
+      height: '50vh',
+      zIndex: '100',
+      backgroundColor: 'black'
+    }}>
+      <h1 style={{ 
+        textAlign: 'center'
+        }}>MODAL</h1>
+      <div onClick={() => props.setOpenModal(false)}>X</div>
+    </div>
+  )
+}
+
 export default function Collection() {
   const [nfts, setNfts] = useState([])
   const [deck, setDeck] = useState([]);
   const [loadingState, setLoadingState] = useState('not-loaded')
+
+  const [openModal, setOpenModal] = useState(false)
+
   useEffect(() => {
     loadNFTs()
   }, [nfts])
@@ -48,11 +74,9 @@ export default function Collection() {
     setLoadingState('loaded') 
   }
   async function addToDeck(nft) {
-    if (deck.includes(nft.name)) {
-      setDeck(deck.filter(item => item !== nft.name))
-    } else {
-      setDeck(deck => [...deck, nft.name])
-    }
+    if (deck.length >= 5 && !deck.includes(nft.name)) setOpenModal(true);
+    if (deck.includes(nft.name)) setDeck(deck.filter(item => item !== nft.name));
+    if (!deck.includes(nft.name) && deck.length < 5) setDeck(deck => [...deck, nft.name])
   }
   useEffect(() => {
     localStorage.setItem("deck", deck)
@@ -85,6 +109,16 @@ export default function Collection() {
       alignItems: 'center',
       justifyContent: 'space-around',
     }}>
+      { openModal ? 
+      <div style={{
+        width: '100vw',
+        height: '100vh',
+        top: 100,
+        display: 'flex',
+        justifyContent: 'center',
+        zIndex: '6',
+        position: 'fixed'
+      }}><Modal setOpenModal={setOpenModal} /></div> : null }
       { deck && (
         <div>{ deck.map((name, i) => {
           return (
