@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styles from '../styles/Header.module.css'
+import React from "react";
+import styles from '../styles/components/Header.module.css'
 import Animated from "./Animated";
 
 export default function Header({ signer, balance }) {

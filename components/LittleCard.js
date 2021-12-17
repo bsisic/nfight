@@ -1,6 +1,6 @@
 import React from "react"
 import Image from "next/image"
-import * as styles from "../styles/LittleCard.module.css"
+import * as styles from "../styles/components/LittleCard.module.css"
 import classNames from "classnames"
 
 export function LittleCard({ image, name, className }) {

@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "../styles/Card.module.css"
+import styles from "../styles/components/Card.module.css"
 
 export default function Card(props) {
     return (

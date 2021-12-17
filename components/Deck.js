@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import * as styles from "../styles/Deck.module.css"
+import * as styles from "../styles/components/Deck.module.css"
 import { LittleCard } from "./LittleCard"
 import classNames from "classnames"
 import { useRouter } from "next/router"

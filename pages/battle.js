@@ -1,14 +1,5 @@
-import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
-import Web3Modal from "web3modal"
-import Image from 'next/image'
-import {
-  nftmarketaddress, nftaddress
-} from '../config'
-import Card from '../components/Card'
-import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
+import * as styles from "../styles/pages/Battle.module.css"
 
 export default function Battle() {
   const [nfts, setNfts] = useState([])
@@ -32,27 +23,9 @@ export default function Battle() {
     </div>
   )
   return (
-    <div style={{
-      width: '100%',
-      display: 'flex',
-      flexWrap:'wrap',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <h1 style={{
-        fontWeight: '300'
-      }}>Find a battle : </h1>
-      <button style={{
-        marginLeft: '5px',
-        width: '300px',
-        height: '3rem',
-        backgroundColor: 'white',
-        border: 'none',
-        fontFamily: 'Helvetica Neue, sans-serif',
-        fontWeight: '700',
-        fontSize:'30px',
-        cursor: 'pointer'
-      }}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Find a battle : </h1>
+      <button className={styles.btn}>
         PLAY! 🕵️‍♂️
       </button>
     </div>
