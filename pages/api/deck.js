@@ -31,7 +31,6 @@ async function getDeckHandler(req, res) {
     if(!key) {
         return res.status(400).send()
     }
-    
 
     const result = await getDeck(key)
 
@@ -43,15 +42,18 @@ async function getDeckHandler(req, res) {
 } 
 
 export default function deckHandler(req, res) {
-
-    switch(req.method) {
-        case 'POST': 
-            return saveDeckHandler(req, res)
-        case 'GET' :
-            return getDeckHandler(req, res)
+    try {
+        switch(req.method) {
+            case 'POST': 
+                return saveDeckHandler(req, res)
+            case 'GET' :
+                return getDeckHandler(req, res)
+            
+            default: 
+                return res.status(404).send()
+        }
     }
-
-    if(req.method !== "POST") {
-        return res.status(400).send()
+    catch(e) {
+        return res.status(500).send()
     }
 }
