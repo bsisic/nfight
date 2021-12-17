@@ -13,9 +13,12 @@ export default function Collection() {
   const [nfts, setNfts] = useState([])
   const [deck, setDeck] = useState([]);
   const [loadingState, setLoadingState] = useState('not-loaded')
+  const [userAddress, setUserAddress] = useState("")
+
   useEffect(() => {
     loadNFTs()
-  }, [nfts])
+  }, [])
+  
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
       network: "mainnet",
@@ -24,6 +27,8 @@ export default function Collection() {
     const connection = await web3Modal.connect()
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
+
+    setUserAddress(connection.selectedAddress)
 
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
@@ -48,21 +53,34 @@ export default function Collection() {
     setLoadingState('loaded') 
   }
   async function addToDeck(nft) {
-    if (deck.includes(nft.name)) {
-      setDeck(deck.filter(item => item !== nft.name))
+    if (deck.includes(nft.image)) {
+      setDeck(deck.filter(item => item !== nft.image))
     } else {
-      setDeck(deck => [...deck, nft.name])
+      setDeck(deck => [...deck, nft.image])
     }
   }
   useEffect(() => {
     localStorage.setItem("deck", deck)
+    if(nfts.length > 0) {
+      axios.post("/api/deck", { key: userAddress, nfts: deck } )
+      .catch(e => console.error(e))
+    }
   }, [deck]);
 
   useEffect(() => {
+    if(!userAddress) return 
+
+    axios.get("/api/deck", {params: { key: userAddress }})
+    .then(result => {
+      setDeck(result.data.nfts)
+    })
+    .catch(e => console.error(e))
+
     if (localStorage.getItem("deck") !== null){
       console.log(localStorage.getItem("deck"))
     }
-  }, []);
+
+  }, [userAddress]);
 
   if (loadingState === 'loaded' && !nfts.length) return (
     <div style={{
@@ -85,13 +103,6 @@ export default function Collection() {
       alignItems: 'center',
       justifyContent: 'space-around',
     }}>
-      { deck && (
-        <div>{ deck.map((name, i) => {
-          return (
-            <p key={i}>{name}</p>
-          )
-        }) }</div>
-      )}
       <div style={{
         width: '100vw',
         display: 'flex',
@@ -101,7 +112,7 @@ export default function Collection() {
       }}>
         {
           nfts.map((nft, i) => (
-            <Card key={i} image={nft.image} name={nft.name} description={nft.description} onClick={() => addToDeck(nft)} price={nft.price} nobuy={true} isDeck={deck.includes(nft.name)}/>
+            <Card key={i} image={nft.image} name={nft.name} description={nft.description} onClick={() => addToDeck(nft)} price={nft.price} nobuy={true} isDeck={deck.includes(nft.image)}/>
           ))
         }
       </div>
