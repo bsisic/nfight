@@ -2,16 +2,13 @@ import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Web3Modal from "web3modal"
-import {
-  nftmarketaddress, nftaddress
-} from '../config'
 import Card from '../components/Card'
-import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
+import { getMyNfts } from '../api/services/NftService'
+import useDeckStore from '../store/deck'
 
 export default function Collection() {
   const [nfts, setNfts] = useState([])
-  const [deck, setDeck] = useState([]);
+  const {deck, addToDeck, removeFromDeck} = useDeckStore(({deck, addToDeck, removeFromDeck}) => ({ deck, addToDeck, removeFromDeck }))
   const [loadingState, setLoadingState] = useState('not-loaded')
   const [userAddress, setUserAddress] = useState("")
 
@@ -30,39 +27,23 @@ export default function Collection() {
 
     setUserAddress(connection.selectedAddress)
 
-    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
-    const data = await marketContract.fetchMyNFTs()
+    const items = await getMyNfts(provider, signer)
 
-    const items = await Promise.all(data.map(async i => {
-      const tokenUri = await tokenContract.tokenURI(i.tokenId)
-      const meta = await axios.get(tokenUri)
-      let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
-      let item = {
-        price,
-        tokenId: i.tokenId.toNumber(),
-        seller: i.seller,
-        owner: i.owner,
-        image: meta.data.image,
-        description: meta.data.description,
-        name: meta.data.name
-      }
-      return item
-    }))
     setNfts(items)
     setLoadingState('loaded') 
   }
-  async function addToDeck(nft) {
-    if (deck.includes(nft.image)) {
-      setDeck(deck.filter(item => item !== nft.image))
+  async function manageDeck(nft) {
+    console.log(deck.find(item => item.image === nft.image))
+    if (deck.find(item => item.image === nft.image)) {
+      removeFromDeck(nft)
     } else {
-      setDeck(deck => [...deck, nft.image])
+      addToDeck(nft)
     }
   }
   useEffect(() => {
     localStorage.setItem("deck", deck)
     if(nfts.length > 0) {
-      axios.post("/api/deck", { key: userAddress, nfts: deck } )
+      axios.post("/api/deck", { key: userAddress, nfts: deck.map(item => item.image) } )
       .catch(e => console.error(e))
     }
   }, [deck]);
@@ -112,7 +93,7 @@ export default function Collection() {
       }}>
         {
           nfts.map((nft, i) => (
-            <Card key={i} image={nft.image} name={nft.name} description={nft.description} onClick={() => addToDeck(nft)} price={nft.price} nobuy={true} isDeck={deck.includes(nft.image)}/>
+            <Card key={nft.image} image={nft.image} name={nft.name} description={nft.description} onClick={() => manageDeck(nft)} price={nft.price} nobuy={true} isDeck={deck.find(item => item.image === nft.image)}/>
           ))
         }
       </div>

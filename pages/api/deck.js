@@ -1,12 +1,20 @@
 import { connectDb } from "../../api/database/connect"
 import { getDeck, saveDeck } from "../../api/services/DeckService"
+import {ethers} from "ethers"
+import { getMyNfts } from "../../api/services/NftService"
 
 async function saveDeckHandler(req, res) {
     const body = req.body
 
+    const provider = new ethers.providers.JsonRpcProvider(process.env.ETHER_CONNECTION_URL)
+    const signer = provider.getSigner(body.key)
+    const userNfts = await getMyNfts(provider, signer)
+
+    const allowedNfts = body.nfts.filter(nft => userNfts.find(userNft => userNft.image === nft))
+
     await connectDb()
 
-    const result = await saveDeck(body.key, body.nfts)
+    const result = await saveDeck(body.key, allowedNfts)
 
     return res.status(201).json(result)
 }
@@ -18,6 +26,7 @@ async function getDeckHandler(req, res) {
     if(!key) {
         return res.status(400).send()
     }
+    
 
     const result = await getDeck(key)
     console.log({result})
