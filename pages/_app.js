@@ -57,8 +57,6 @@ function NFighT({ Component, pageProps }) {
       .catch(e => console.error(e))
   }
 
-  console.log({ deck });
-
   return (
     <>
       <Head>

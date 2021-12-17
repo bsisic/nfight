@@ -34,7 +34,6 @@ async function getDeckHandler(req, res) {
     
 
     const result = await getDeck(key)
-    console.log({result})
 
     if(!result) {
         return res.status(404).send()

@@ -11,11 +11,8 @@ export async function getMyNfts(provider, signer) {
 
     const nfts = await marketContract.fetchMyNFTs()
 
-    console.log({nfts});
-
     return Promise.all(nfts.map(async i => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId)
-        console.log(i.tokenId)
         const meta = await axios.get(tokenUri)
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
         let item = {
