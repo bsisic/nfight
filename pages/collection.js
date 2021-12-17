@@ -5,6 +5,7 @@ import Web3Modal from "web3modal"
 import Card from '../components/Card'
 import { getMyNfts } from '../api/services/NftService'
 import useDeckStore from '../store/deck'
+import { MAX_CARDS_BY_DECK } from '../constants/deck'
 
 export default function Collection() {
   const [nfts, setNfts] = useState([])
@@ -33,7 +34,11 @@ export default function Collection() {
     setLoadingState('loaded') 
   }
   async function manageDeck(nft) {
-    console.log(deck.find(item => item.image === nft.image))
+
+    if(deck.length >= MAX_CARDS_BY_DECK) {
+      return
+    }
+
     if (deck.find(item => item.image === nft.image)) {
       removeFromDeck(nft)
     } else {
@@ -47,21 +52,6 @@ export default function Collection() {
       .catch(e => console.error(e))
     }
   }, [deck]);
-
-  useEffect(() => {
-    if(!userAddress) return 
-
-    axios.get("/api/deck", {params: { key: userAddress }})
-    .then(result => {
-      setDeck(result.data.nfts)
-    })
-    .catch(e => console.error(e))
-
-    if (localStorage.getItem("deck") !== null){
-      console.log(localStorage.getItem("deck"))
-    }
-
-  }, [userAddress]);
 
   if (loadingState === 'loaded' && !nfts.length) return (
     <div style={{
