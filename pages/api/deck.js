@@ -7,6 +7,10 @@ import { MAX_CARDS_BY_DECK } from "../../constants/deck"
 async function saveDeckHandler(req, res) {
     const body = req.body
 
+    if(!body.key || !body.nfts) {
+        return res.status(422).send("Missing data")
+    }
+
     if(body.nfts > MAX_CARDS_BY_DECK) {
         return res.status(400).json("The deck has too many cards")
     }

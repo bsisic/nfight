@@ -35,13 +35,10 @@ export default function Collection() {
   }
   async function manageDeck(nft) {
 
-    if(deck.length >= MAX_CARDS_BY_DECK) {
-      return
-    }
 
     if (deck.find(item => item.image === nft.image)) {
       removeFromDeck(nft)
-    } else {
+    } else if(deck.length < MAX_CARDS_BY_DECK) {
       addToDeck(nft)
     }
   }
