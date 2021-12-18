@@ -1,0 +1,66 @@
+.wrapper {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+.modalContainer {
+    width: 60%;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid white;
+    padding: 50px 0;
+}
+.modalTitle {
+    color: white;
+    margin: 0;
+    margin-bottom: 35px;
+    font-size: 30px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.myDeckBtn {
+    position: fixed;
+    z-index: 10001;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    color: black;
+    background: none;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: .9;
+    transition: .3s;
+}
+.myDeckBtn:hover {
+    opacity: 1;
+}
+
+.activeDeckBtn {
+    opacity: 1;
+}
+.noRecords {
+    text-align: center;
+}
+.link, .link:active, .link:active {
+    text-decoration: underline;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.card {
+    margin: 0 10px;
+}

@@ -1,7 +1,7 @@
 import { model, models, Schema } from "mongoose";
 
 const DeckSchema = new Schema({
-    key: { type: String },
+    key: { type: String, required: true },
     nfts: { type: [String], default: [] }
 })
 

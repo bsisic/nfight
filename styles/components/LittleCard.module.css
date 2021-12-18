@@ -1,0 +1,26 @@
+.card {
+    border: 2px solid white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100px;
+    height: 150px;
+}
+.cardBody {
+    padding: 5px;
+}
+.cardName {
+    font-weight: bold;
+}
+.cardName, .carddesc {
+    margin: 3px 0;
+    text-align: center;
+}
+
+.price {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.priceImg {
+    width: 20px;
+}

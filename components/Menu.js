@@ -1,7 +1,7 @@
 import React from "react";
 import Link from 'next/link'
 import { useRouter } from "next/router";
-import styles from '../styles/Menu.module.css'
+import styles from '../styles/components/Menu.module.css'
 
 export default function Menu() {
     const router = useRouter();
