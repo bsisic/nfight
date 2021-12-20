@@ -23,6 +23,7 @@ function NFighT({ Component, pageProps }) {
   useEffect(() => {
     if (!signer) return
     loadDeck()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer])
 
   async function loadSigner() {

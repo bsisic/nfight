@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook -s public"
@@ -19,6 +19,7 @@
     "classnames": "^2.3.1",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.1",
+    "express": "^4.17.2",
     "framer-motion": "^5.3.3",
     "hardhat": "^2.7.0",
     "ipfs-http-client": "^50.1.2",
@@ -26,6 +27,7 @@
     "next": "12.0.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "socket.io": "^4.4.0",
     "web3": "^1.6.1",
     "web3modal": "^1.9.4",
     "zustand": "^3.6.7"
