@@ -19,11 +19,12 @@ nextApp.prepare().then(async() => {
     // });
 
     io.on('connection', (socket) => {
-        console.log('connection');
-        socket.emit('status', 'response from socket.io');
+        const count = io.engine.clientsCount;
+        console.log(socket.id)
+        console.log(`${count} players connected`)
 
         socket.on('disconnect', () => {
-            console.log('client disconnected');
+            console.log(`1 client disconnected : only ${count} players left`);
         })
     });
 

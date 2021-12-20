@@ -4,7 +4,6 @@ import '../styles/globals.css'
 import Header from '../components/Header'
 import Menu from '../components/Menu'
 import Footer from '../components/Footer'
-import { AnimatePresence } from 'framer-motion';
 import { ethers } from "ethers"
 import Web3Modal from "web3modal"
 import useDeckStore from '../store/deck'

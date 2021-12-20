@@ -1,16 +1,33 @@
 import { useEffect, useState } from 'react'
 import * as styles from "../styles/pages/Battle.module.css"
+import useDeckStore from '../store/deck'
+import io from 'socket.io-client'
 
 export default function Battle() {
-  const [nfts, setNfts] = useState([])
-  const [sold, setSold] = useState([])
   const [loading, setLoading] = useState(true)
+  const { deck, setDeck } = useDeckStore(({ deck, setDeck }) => ({ deck, setDeck }))
 
   useEffect(() => {
     setLoading(false)
+    console.log(deck)
+  }, [deck])
+
+  useEffect(() => {
+    fetch('/api/').finally(() => {
+      const socket = io()
+
+      socket.on('connect', () => {
+        console.log('connect')
+        socket.emit('hello')
+      })
+
+      socket.on('disconnect', () => {
+        console.log('disconnect')
+      })
+    })
   }, [])
 
-  if (loading && !nfts.length) return (
+  if (loading && deck.length !== 5) return (
     <div style={{
       width: '100%',
       display: 'flex',
@@ -24,10 +41,7 @@ export default function Battle() {
   )
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Find a battle : </h1>
-      <button className={styles.btn}>
-        PLAY! 🕵️‍♂️
-      </button>
+      <h1 className={styles.title}>Players connected : </h1>
     </div>
   )
 }
